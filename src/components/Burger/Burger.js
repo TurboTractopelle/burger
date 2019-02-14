@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
-import Aux from "../../hoc/Aux2"
-
+import classes from "./Burger.css"
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const Burger = (props) => {
     return(
-        <Aux>
-            Burger comp
-        </Aux>
+        <div className={classes.burger}>
+            <BurgerIngredient type="bread-top"/>          
+            <BurgerIngredient type="salad"/>
+            <BurgerIngredient type="bacon"/>
+            <BurgerIngredient type="salad"/>
+            <BurgerIngredient type="meat"/>
+            <BurgerIngredient type="cheese"/>
+            <BurgerIngredient type="bread-bottom"/>            
+        </div>
     )
 }
 
