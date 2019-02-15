@@ -15,15 +15,18 @@ const Burger = (props) => {
         return a
     },[])
     // [ "salad", "bacon", "cheese", "cheese", "meat", "meat" ]
+
+    const msg = <p>Please select ingredients</p>
+    const ingredients = modifiedIngredients.map((item,i)=>{
+        return <BurgerIngredient type={item} key={item+i} />
+    })
+
+    const ingredientsDisplay = ingredients.length ? ingredients: msg
     
     return(
         <div className={classes.burger}>
         <BurgerIngredient type="bread-top" />
-        {
-            modifiedIngredients.map((item,i)=>{
-            return <BurgerIngredient type={item} key={item+i} />
-        })
-        }
+            { ingredientsDisplay }
         <BurgerIngredient type="bread-bottom" />
         </div>
     )
