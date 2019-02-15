@@ -18,11 +18,13 @@ const Burger = (props) => {
     
     return(
         <div className={classes.burger}>
+        <BurgerIngredient type="bread-top" />
         {
             modifiedIngredients.map((item,i)=>{
             return <BurgerIngredient type={item} key={item+i} />
         })
         }
+        <BurgerIngredient type="bread-bottom" />
         </div>
     )
 }
