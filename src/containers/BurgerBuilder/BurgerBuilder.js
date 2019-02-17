@@ -56,7 +56,7 @@ class BurgerBuilder extends Component{
             const newsPurchasable = !(sumPurchasable === 1 && prevState.ingredients[type]===1)         
 
             const value = prevState.ingredients[type]
-            return value == 0 
+            return value === 0 
                 ? {...prevState}
                 : {...prevState, ingredients:{...prevState.ingredients, [type]:prevState.ingredients[type]-1}, totalPrice: Math.round((prevState.totalPrice - INGREDIENT_PRICES[type])*100)/100, purchasable:newsPurchasable}
         })

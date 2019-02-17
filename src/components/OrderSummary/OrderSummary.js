@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './orderSummary.css'
 import Aux from '../../hoc/Aux2'
 import Button from '../UI/Button/Button'
 
