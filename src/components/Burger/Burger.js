@@ -4,7 +4,6 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const Burger = (props) => {
 
-    console.log(props.ingredients)
     // { salad: 1, bacon: 1, cheese: 2, meat: 2 }
 
     //const ItemIngredients = Object.keys(props.ingredients)
