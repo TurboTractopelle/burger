@@ -64,8 +64,6 @@ class BurgerBuilder extends Component{
     }
 
     render(){
-        console.log(this.state)
-
         const {ingredients} = this.state
         const disabledInfo = Object.keys(ingredients).reduce((a,k)=>{
             return a = ingredients[k] === 0 ? { ...a, [k]: true } : { ...a, [k]: false }
@@ -73,7 +71,9 @@ class BurgerBuilder extends Component{
         
     return(
             <Aux>
-                <Modal testShow={this.state.purchasing} closeModal={this.closeModal}><OrderSummary ingredients={ingredients} closeModal={this.closeModal} purchaseContinue={this.purchaseContinue} /></Modal>
+                <Modal testShow={this.state.purchasing} closeModal={this.closeModal}>
+                    <OrderSummary ingredients={ingredients} closeModal={this.closeModal} purchaseContinue={this.purchaseContinue} price={this.state.totalPrice}/>
+                </Modal>
                 <Burger ingredients={ingredients} />
                 <BuildControls addIngredientHandler={this.addIngredientHandler} removeIngredientHandler={this.removeIngredientHandler} disabledInfo={disabledInfo} price={this.state.totalPrice} purchasable={this.state.purchasable} purchasingHandler={this.purchasingHandler}/>
             </Aux>

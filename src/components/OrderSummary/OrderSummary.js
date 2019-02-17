@@ -3,7 +3,7 @@ import classes from './orderSummary.css'
 import Aux from '../../hoc/Aux2'
 import Button from '../UI/Button/Button'
 
-const orderSummary =({ingredients, closeModal, purchaseContinue})=> {
+const orderSummary =({ingredients, closeModal, purchaseContinue, price})=> {
 
 const ingredientSummary = Object.keys(ingredients).map((k)=>{
     return(
@@ -18,6 +18,7 @@ return (
             <ul>
                 {ingredientSummary}
             </ul>
+            <p><b>{price}$</b></p>            
             <Button btnType="Danger" clicked={closeModal}>CANCEL</Button>
             <Button btnType="Success" clicked={purchaseContinue}>CONTINUE</Button>
         </Aux>
