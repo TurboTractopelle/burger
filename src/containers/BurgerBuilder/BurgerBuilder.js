@@ -41,11 +41,14 @@ class BurgerBuilder extends Component{
 
     render(){
         const {ingredients} = this.state
-        console.log(this.state)
+        const disabledInfo = Object.keys(ingredients).reduce((a,k)=>{
+            return a = ingredients[k] === 0 ? { ...a, [k]: true } : { ...a, [k]: false }
+          }, {})
+        console.log(this.state, disabledInfo)
     return(
             <Aux>
                 <Burger ingredients={ingredients} />
-                <BuildControls addIngredientHandler={this.addIngredientHandler} removeIngredientHandler={this.removeIngredientHandler}/>
+                <BuildControls addIngredientHandler={this.addIngredientHandler} removeIngredientHandler={this.removeIngredientHandler} disabledInfo={disabledInfo}/>
             </Aux>
         )
     }
