@@ -17,7 +17,7 @@ class Layout extends Component{
     render(){
     return(
         <Aux>
-            <Toolbar showMenuHandler={this.showMenuHandler} />
+            <Toolbar showMenuHandler={this.showMenuHandler}/>
             <SlideNav showBackdrop={this.state.showMenu} closeModal={this.closeModalHandler} showMenu={this.state.showMenu} />
             <main className={classes.content}>
                 {this.props.children}

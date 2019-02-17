@@ -8,6 +8,7 @@ const toolbar =(props)=> {
 return (
         <header className={classes.Toolbar}>
             <div onClick={props.showMenuHandler}>MENU</div>
+          
             <Logo />
 
             <SlideNav showMenu={props.showMenu} />
