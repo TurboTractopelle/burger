@@ -9,7 +9,6 @@ const ingredientSummary = Object.keys(ingredients).map((k)=>{
         <li key={k}>{k}: {ingredients[k]}</li>
     )
 })
-console.log(ingredientSummary)
 
 
 

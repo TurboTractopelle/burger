@@ -23,7 +23,12 @@ class BurgerBuilder extends Component{
             meat:0
         }, 
         totalPrice: INGREDIENT_PRICES["base"],
-        purchasable : false
+        purchasable : false,
+        purchasing:false
+    }
+
+    purchasingHandler= ()=>{
+        this.setState({purchasing:true})
     }
 
     addIngredientHandler = (type)=>()=>{
@@ -57,9 +62,9 @@ class BurgerBuilder extends Component{
         
     return(
             <Aux>
-                <Modal ><OrderSummary ingredients={ingredients}/></Modal>
+                <Modal testShow={this.state.purchasing}><OrderSummary ingredients={ingredients}/></Modal>
                 <Burger ingredients={ingredients} />
-                <BuildControls addIngredientHandler={this.addIngredientHandler} removeIngredientHandler={this.removeIngredientHandler} disabledInfo={disabledInfo} price={this.state.totalPrice} purchasable={this.state.purchasable} />
+                <BuildControls addIngredientHandler={this.addIngredientHandler} removeIngredientHandler={this.removeIngredientHandler} disabledInfo={disabledInfo} price={this.state.totalPrice} purchasable={this.state.purchasable} purchasingHandler={this.purchasingHandler}/>
             </Aux>
         )
     }
