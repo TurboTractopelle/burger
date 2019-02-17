@@ -1,0 +1,34 @@
+.SlideNav{
+    position: fixed;
+    width:300px;
+    max-width: 70%;
+    height: 100%;
+    top:0;
+    left: 0;
+    z-index: 200;
+    background: #fff;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    transition: transform ease 500ms;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5)
+}
+
+.Logo{
+    text-align: center;
+    height: 10%;
+    margin-bottom: 2rem;
+}
+
+@media (min-width:500px){
+    .SlideNav{
+        display: none;
+    }
+}
+
+.Open{
+    transform: translateX(0)
+}
+
+.Close{
+    transform: translateX(-100%)
+}

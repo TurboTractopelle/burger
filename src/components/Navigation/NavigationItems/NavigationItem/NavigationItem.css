@@ -1,10 +1,8 @@
 .NavigationItem{
-    margin: 0;
+    margin: 1rem 0;
     box-sizing: border-box;
-    display: flex;
-    height: 100%;
-    align-items: center;
-
+    display: block;
+    width: 100%;
 }
 
 .NavigationItem a{
@@ -14,8 +12,9 @@
     padding: 2rem 1rem;
     border-bottom: 4px solid transparent;
     box-sizing: border-box;
-    background: rgba(255,255,255,0.3);
+    background: rgba(0, 0, 0, 0.3);
     transition: all ease 500ms;
+    display: block;
 }
 
 .NavigationItem a:hover,
@@ -24,4 +23,38 @@
     background: beige;
     border-bottom: 4px solid olive;
     color:#333;
+}
+
+
+@media (min-width:500px){
+
+    .NavigationItem{
+        margin: 0;
+        box-sizing: border-box;
+        display: flex;
+        height: 100%;
+        align-items: center;
+    
+    }
+    
+    .NavigationItem a{
+        color:#fff;
+        text-decoration: none;
+        height: 100%;
+        padding: 2rem 1rem;
+        border-bottom: 4px solid transparent;
+        box-sizing: border-box;
+        background: rgba(0,0,0,0.3);
+        transition: all ease 500ms;
+    }
+    
+    .NavigationItem a:hover,
+    .NavigationItem a:active,
+    .NavigationItem a.active{
+        background: beige;
+        border-bottom: 4px solid olive;
+        color:#333;
+    }
+    
+
 }

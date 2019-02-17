@@ -16,3 +16,7 @@
 .Toolbar nav{
     height: 100%
 }
+
+@media (max-width:500px){
+    .nav{display: none}
+}
