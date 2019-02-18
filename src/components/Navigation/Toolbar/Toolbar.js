@@ -7,7 +7,7 @@ import SlideNav from '../SlideNav/SlideNav'
 const toolbar =(props)=> {
 return (
         <header className={classes.Toolbar}>
-            <div onClick={props.showMenuHandler}>MENU</div>
+            <div onClick={props.showMenuHandler} className={classes.Menu}>MENU</div>
           
             <Logo />
 
