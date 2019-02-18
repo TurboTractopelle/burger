@@ -5,7 +5,9 @@ const SlideNavToggle = (props) => {
 
 return(
     <div onClick={props.showMenuHandler} className={classes.SlideNavToggle}>
-        MENU
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 )
 }

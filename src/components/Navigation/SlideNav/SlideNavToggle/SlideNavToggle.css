@@ -1,4 +1,14 @@
 
+
+.SlideNavToggle div{
+    background: #fff;
+    height: 3px;
+    width: 32px;
+    margin-bottom: 4px
+
+}
+
+
 @media (min-width:500px){
     .SlideNavToggle{display: none}
 }
