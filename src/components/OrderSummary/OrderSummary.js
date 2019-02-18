@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Aux from '../../hoc/Aux2'
 import Button from '../UI/Button/Button'
 
-const orderSummary =({ingredients, closeModal, purchaseContinue, price})=> {
+class orderSummary extends Component {
+//class just to test the lifecycle hook
 
+
+render(){
+
+console.log("orderSummary rendered")
+  
+const {ingredients, closeModal, purchaseContinue, price} = this.props
 const ingredientSummary = Object.keys(ingredients).map((k)=>{
     return(
         <li key={k}>{k}: {ingredients[k]}</li>
@@ -22,6 +29,7 @@ return (
             <Button btnType="Success" clicked={purchaseContinue}>CONTINUE</Button>
         </Aux>
     );
+}
 }
 
 export default orderSummary;
