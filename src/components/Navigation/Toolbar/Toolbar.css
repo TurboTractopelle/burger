@@ -17,10 +17,6 @@
     height: 100%
 }
 
-@media (min-width:500px){
-    .Menu{display: none}
-}
-
 
 @media (max-width:500px){
     .nav{display: none}
