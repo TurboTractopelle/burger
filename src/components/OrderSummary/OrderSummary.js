@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/Aux2/Aux2'
 import Button from '../UI/Button/Button'
+import Spinner from '../UI/Spinner/Spinner'
 
 class orderSummary extends Component {
 //class just to test the lifecycle hook
@@ -8,7 +9,6 @@ class orderSummary extends Component {
 
 render(){
 
-console.log("orderSummary rendered")
   
 const {ingredients, closeModal, purchaseContinue, price} = this.props
 const ingredientSummary = Object.keys(ingredients).map((k)=>{
@@ -24,7 +24,10 @@ return (
             <ul>
                 {ingredientSummary}
             </ul>
-            <p><b>{price}$</b></p>            
+            <p><b>{price}$</b></p>    
+
+            {this.props.loading ? <Spinner /> : null}
+
             <Button btnType="Danger" clicked={closeModal}>CANCEL</Button>
             <Button btnType="Success" clicked={purchaseContinue}>CONTINUE</Button>
         </Aux>
