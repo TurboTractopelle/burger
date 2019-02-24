@@ -49,7 +49,7 @@ class BurgerBuilder extends Component{
                 console.log(resp)
                 this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
             })
-        },1000)
+        },500)
 
     }
 
@@ -104,4 +104,4 @@ class BurgerBuilder extends Component{
     }
 }
 
-export default withErrorHandler(BurgerBuilder);
+export default withErrorHandler(BurgerBuilder, axios);
