@@ -4,6 +4,7 @@ import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from "../../axios-order"
 
 const INGREDIENT_PRICES= {
@@ -89,8 +90,8 @@ class BurgerBuilder extends Component{
         const disabledInfo = Object.keys(ingredients).reduce((a,k)=>{
             return a = ingredients[k] === 0 ? { ...a, [k]: true } : { ...a, [k]: false }
           }, {})
-        
-        console.log("state loading: ", this.state.loading)
+       
+
     return(
             <Aux>
                 <Modal testShow={this.state.purchasing} closeModal={this.closeModal}  >
@@ -103,4 +104,4 @@ class BurgerBuilder extends Component{
     }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder);
