@@ -10,8 +10,8 @@ return (
             <div style={{width: "100%", margin: "0 auto"}}>
                 <Burger ingredients={props.ingredients} />
             </div>
-            <Button btnType="Danger">Cancel</Button>
-            <Button btnType="Success">Go</Button>
+            <Button btnType="Danger" clicked={props.onCheckoutCancelled}>Cancel</Button>
+            <Button btnType="Success" clicked={props.onCheckoutContinue}>Go</Button>
         </div>
     );
 }
