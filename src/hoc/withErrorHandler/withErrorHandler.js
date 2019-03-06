@@ -13,7 +13,8 @@ return class extends Component {
         axios.interceptors.request.use(res => res,
             error => {
                 this.setState(error)
-                return error
+                console.log("gg")
+                //return error
             })
             
     }

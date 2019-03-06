@@ -44,12 +44,14 @@ class BurgerBuilder extends Component{
         }
 
         setTimeout(()=>{
-            axios.post("/orders.json" , order)
+            axios.post("/orders.jsonE" , order)
             .then(resp=> {
                 console.log(resp)
                 this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
             })
+            .catch(error => console.log("catched"))
         },500)
+
 
     }
 
