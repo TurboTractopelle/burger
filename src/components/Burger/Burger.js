@@ -2,8 +2,10 @@ import React from 'react';
 import classes from "./Burger.css"
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
+
 const Burger = (props) => {
 
+    console.log(props)
     // { salad: 1, bacon: 1, cheese: 2, meat: 2 }
 
     //const ItemIngredients = Object.keys(props.ingredients)

@@ -6,6 +6,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from "../../axios-order"
+import {Redirect } from "react-router-dom"
 
 const INGREDIENT_PRICES= {
     salad :0.3,
@@ -32,8 +33,13 @@ class BurgerBuilder extends Component{
 
     purchaseContinue = () => {
 
-        this.setState(prevState=>({...prevState, loading:true}))
+        this.props.history.push("/checkout");
 
+       /* this.setState(prevState=>({...prevState, loading:true}))*/
+
+
+
+        /*
         const order = {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
@@ -42,15 +48,18 @@ class BurgerBuilder extends Component{
                 expedition: "fast"
             } 
         }
+*/
 
+        /*
         setTimeout(()=>{
-            axios.post("/orders.jsonE" , order)
+            axios.post("/orders.json" , order)
             .then(resp=> {
                 console.log(resp)
                 this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
             })
             .catch(error => console.log("catched"))
         },500)
+        */
 
 
     }
