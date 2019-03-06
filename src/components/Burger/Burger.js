@@ -4,15 +4,13 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 
 const Burger = (props) => {
-
-    console.log(props)
     // { salad: 1, bacon: 1, cheese: 2, meat: 2 }
 
     //const ItemIngredients = Object.keys(props.ingredients)
     // [ "salad", "bacon", "cheese", "meat" ]
 
     const modifiedIngredients = Object.keys(props.ingredients).reduce((a,k,i)=>{
-        a = [...a, ...Array(props.ingredients[k]).fill(k)]
+        a = Number(props.ingredients[k])!==0 ? [...a, ...Array(Number(props.ingredients[k])).fill(k)] : [...a]
         return a
     },[])
     // [ "salad", "bacon", "cheese", "cheese", "meat", "meat" ]

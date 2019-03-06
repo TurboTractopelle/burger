@@ -6,7 +6,6 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from "../../axios-order"
-import {Redirect } from "react-router-dom"
 
 const INGREDIENT_PRICES= {
     salad :0.3,
@@ -33,8 +32,16 @@ class BurgerBuilder extends Component{
 
 
     purchaseContinue = () => {
+        console.log(this.props)
 
-        this.props.history.push("/checkout");
+        const query = [];
+        for(let item in this.state.ingredients){
+            query.push(encodeURIComponent(item) + "=" + this.state.ingredients[item])
+        }
+        this.props.history.push({
+            pathname : "/checkout",
+            search: query.join("&")
+        });
 
        /* this.setState(prevState=>({...prevState, loading:true}))*/
 
