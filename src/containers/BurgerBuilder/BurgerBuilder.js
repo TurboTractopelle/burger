@@ -32,7 +32,6 @@ class BurgerBuilder extends Component{
 
 
     purchaseContinue = () => {
-        console.log(this.props)
 
         const query = [];
         for(let item in this.state.ingredients){
@@ -43,9 +42,9 @@ class BurgerBuilder extends Component{
             search: query.join("&")
         });
 
-       /* this.setState(prevState=>({...prevState, loading:true}))*/
+        this.setState(prevState=>({...prevState, loading:true}))
 
-        /*
+
         const order = {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
@@ -54,9 +53,7 @@ class BurgerBuilder extends Component{
                 expedition: "fast"
             } 
         }
-*/
 
-        /*
         setTimeout(()=>{
             axios.post("/orders.json" , order)
             .then(resp=> {
@@ -65,7 +62,7 @@ class BurgerBuilder extends Component{
             })
             .catch(error => console.log("catched"))
         },500)
-        */
+
 
 
     }
