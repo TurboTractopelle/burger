@@ -45,8 +45,6 @@ class BurgerBuilder extends Component{
 
        /* this.setState(prevState=>({...prevState, loading:true}))*/
 
-
-
         /*
         const order = {
             ingredients: this.state.ingredients,
