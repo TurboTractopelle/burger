@@ -11,6 +11,9 @@ switch(props.inputtype){
     case 'textarea' :
         inputElement = <textarea {...props}/>
         break
+        case 'select' :
+        inputElement = <select className={classes.InputElement} value={props.value}>{props.options.map(option=> <option value={option.value}>{option.display}</option>)} </select>
+        break        
     default:
     inputElement = <input className={classes.InputElement} {...props} value={props.value}/>
 }
