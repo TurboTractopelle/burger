@@ -62,13 +62,36 @@ class ContactData extends Component {
         loading:false
     }
 
+    inputChangeHandler = (id) => (e)=> {
+        const value = e.target.value
+
+        this.setState(prevState => ({
+            ...prevState, 
+                orderForm: {...prevState.orderForm, 
+                                [id] : {...prevState.orderForm.name, 
+                                        value}}
+        }))
+
+    }
+
     render(){
-        return(
+
+       return(
             <div className={classes.ContactData}>
                 <h4>Your data</h4>
                 <form>
 
-                {Object.entries(this.state.orderForm).map(input => <Input inputtype={input[1].elementType} {...input[1].elementConfig} value={input[1].value} />) }
+                {Object.entries(this.state.orderForm).map((input,i) => {
+                    const id = input[0]
+                    return <Input 
+                        inputtype={input[1].elementType} 
+                        elementConfig={input[1].elementConfig} 
+                        pvalue={input[1].value} 
+                        changed={this.inputChangeHandler(id)} 
+                        key={id} 
+                        />
+                    })
+                }
 
                     <Button btnType="Success">ORDER</Button>
                 </form>
