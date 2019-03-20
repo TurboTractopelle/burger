@@ -6,12 +6,60 @@ import Input from "../../../components/UI/Input/Input"
 class ContactData extends Component {
 
     state ={
-        name :'',
-        email : '',
-        adress: {
-            street : "",
-            postal : ''
-        }
+        orderForm : {
+            name :{
+                elementType: "input",
+                elementConfig: {
+                    type:"text",
+                    placeholder: "your name"
+                },
+                value:""
+            },
+            street :{
+                elementType: "input",
+                elementConfig: {
+                    type:"text",
+                    placeholder: "your street"
+                },
+                value:""                
+            },
+            zip :{
+                elementType: "input",
+                elementConfig: {
+                    type:"text",
+                    placeholder: "zip"
+                },
+                value:"54"                
+            },
+            country :{
+                elementType: "input",
+                elementConfig: {
+                    type:"text",
+                    placeholder: "country"
+                },
+                value:""                
+            },
+            email :{
+                elementType: "email",
+                elementConfig: {
+                    type:"text",
+                    placeholder: "email"
+                },
+                value:""                
+            },
+            deliveryMethod :{
+                elementType: "select",
+                elementConfig: {
+                    options: [
+                        {value:"fast", display:"Fast"},
+                        {value:"cheap", display:"Cheap"},
+                    ]
+                },
+                value:""                
+            },          
+
+        },
+        loading:false
     }
 
     render(){
@@ -19,11 +67,8 @@ class ContactData extends Component {
             <div className={classes.ContactData}>
                 <h4>Your data</h4>
                 <form>
-                    <Input inputType="input" type="input" name="name" placeholder="your name" />
-                    <Input inputType="input" type="email" name="email" placeholder="your email" />
-                    <Input inputType="input" type="text" name="street" placeholder="your street" />
-                    <Input inputType="input" type="text" name="postal" placeholder="your postal" />
 
+                {Object.entries(this.state.orderForm).map(input => <Input inputtype={input[1].elementType} {...input[1].elementConfig} value={input[1].value} />) }
 
                     <Button btnType="Success">ORDER</Button>
                 </form>
