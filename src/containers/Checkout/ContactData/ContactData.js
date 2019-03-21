@@ -16,6 +16,7 @@ class ContactData extends Component {
                 },
                 value:"",
                 validation: {
+                    valid:false,                    
                     required:true
                 }
             },
@@ -85,6 +86,7 @@ class ContactData extends Component {
             },          
 
         },
+        formIsValid : false,
         ingredients: [],
         loading:false
     }
@@ -109,13 +111,28 @@ class ContactData extends Component {
     inputChangeHandler = (id) => (e)=> {
         const value = e.target.value
 
-        this.setState(prevState => ({
+
+        this.setState(prevState => {
+
+            let formIsValidArr = [];
+
+            for(let data in prevState.orderForm ){
+                formIsValidArr.push(prevState.orderForm[data].validation.valid)
+            }
+            
+            const formIsValid = !formIsValidArr.some((e)=>e===false)
+
+            return({
             ...prevState, 
                 orderForm: {...prevState.orderForm, 
                                 [id] : {...prevState.orderForm[id], 
                                         validation : {...prevState.orderForm[id].validation, valid: this.checkValidity(value, prevState.orderForm[id].validation)},
-                                        value}}
-        }))
+                                        value}
+                            },
+            formIsValid
+        })
+        
+        })
 
     }
 
@@ -162,7 +179,6 @@ class ContactData extends Component {
 
     render(){
 
-
        return(
             <div className={classes.ContactData}>
                 <h4>Your data</h4>
@@ -182,7 +198,7 @@ class ContactData extends Component {
                     })
                 }
 
-                    <Button btnType="Success">ORDER</Button>
+                    {this.state.formIsValid ? <Button btnType="Success">ORDER</Button> : <p>Remplir les champs</p>}
                 </form>
             </div>
         )

@@ -4,7 +4,7 @@ import classes from "./Input.css"
 const Input =(props)=> {
 
 
-const valid = props.valid ? classes.Valid : classes.Invalid;
+const valid = props.valid ? classes.Valid : null;
 
 let inputElement = null
 
