@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import classes from './ContactData.css'
 import Button from "../../../components/UI/Button/Button"
 import Input from "../../../components/UI/Input/Input"
+import axios from "../../../axios-order"
 
 class ContactData extends Component {
 
@@ -59,8 +60,11 @@ class ContactData extends Component {
             },          
 
         },
+        ingredients: [],
         loading:false
     }
+
+
 
     inputChangeHandler = (id) => (e)=> {
         const value = e.target.value
@@ -74,12 +78,48 @@ class ContactData extends Component {
 
     }
 
+    orderHandler= (e)=>{
+        e.preventDefault();
+        this.setState({loading:true})
+
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name : "bob",
+                expedition: "fast"
+            } 
+        }
+
+        setTimeout(()=>{
+
+            axios.post("/orders.json" , order)
+            .then(resp=> {
+                console.log(resp)
+                this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
+            })
+            .catch(error => console.log("catched"))
+        },500)
+
+    }
+
+    componentDidMount(){
+        const query = new URLSearchParams(this.props.location.search)
+        const ingredients = {}
+        for (let param of query.entries()){
+            // [ "salad", "0" ]
+            ingredients[param[0]] = param[1]
+        }
+        this.setState({ingredients: ingredients})
+    }
+
     render(){
+
 
        return(
             <div className={classes.ContactData}>
                 <h4>Your data</h4>
-                <form>
+                <form onSubmit={this.orderHandler}>
 
                 {Object.entries(this.state.orderForm).map((input,i) => {
                     const id = input[0]

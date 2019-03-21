@@ -22,7 +22,16 @@ onCheckoutCancelledHandler= ()=> {
     this.props.history.goBack()
 }
 onCheckoutContinueHandler = ()=>{
-    this.props.history.replace("/checkout/contact-data")
+
+    const query = [];
+    for(let item in this.state.ingredients){
+        query.push(encodeURIComponent(item) + "=" + this.state.ingredients[item])
+    }
+    this.props.history.push({
+        pathname : this.props.match.path + "/contact-data",
+        search: query.join("&")
+    });
+
 }
 
 render() {
