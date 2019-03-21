@@ -78,7 +78,7 @@ class ContactData extends Component {
                         {value:"cheap", display:"Cheap"},
                     ]
                 },
-                value:"",
+                value:"fast", // besoin de préciser, sinon dans UI on voit une sélection, et à la validation il est est true en +
                 validation: {
                     valid:true,                    
                     required:true
@@ -108,20 +108,26 @@ class ContactData extends Component {
         return isValid
     }
 
+
+    checkFormValidity= (orderForm)=>{
+
+        let formIsValidArr = [];
+
+        for(let data in orderForm ){
+            console.log(data, orderForm[data].validation.valid)
+            formIsValidArr.push(orderForm[data].validation.valid)
+        }
+        console.log(!formIsValidArr.some((e)=>e===false))
+        return !formIsValidArr.some((e)=>e===false)
+
+    }
+
+
     inputChangeHandler = (id) => (e)=> {
         const value = e.target.value
 
-
         this.setState(prevState => {
-
-            let formIsValidArr = [];
-
-            for(let data in prevState.orderForm ){
-                formIsValidArr.push(prevState.orderForm[data].validation.valid)
-            }
-            
-            const formIsValid = !formIsValidArr.some((e)=>e===false)
-
+   
             return({
             ...prevState, 
                 orderForm: {...prevState.orderForm, 
@@ -129,7 +135,7 @@ class ContactData extends Component {
                                         validation : {...prevState.orderForm[id].validation, valid: this.checkValidity(value, prevState.orderForm[id].validation)},
                                         value}
                             },
-            formIsValid
+            formIsValid : this.checkFormValidity(prevState.orderForm)
         })
         
         })
