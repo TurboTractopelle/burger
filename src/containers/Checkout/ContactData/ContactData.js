@@ -197,8 +197,7 @@ class ContactData extends Component {
                         />
                     })
                 }
-
-                    {this.state.formIsValid ? <Button btnType="Success">ORDER</Button> : <p>Remplir les champs</p>}
+                <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>                
                 </form>
             </div>
         )
