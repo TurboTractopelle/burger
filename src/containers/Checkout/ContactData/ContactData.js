@@ -109,12 +109,12 @@ class ContactData extends Component {
     }
 
 
-    checkFormValidity= (orderForm)=>{
+    checkFormValidity= (orderForm, value, id, validation)=>{
 
+        // TODO refaire ici le test de validation pour avoir la dernière valeur de la validité de l id
         let formIsValidArr = [];
 
         for(let data in orderForm ){
-            console.log(data, orderForm[data].validation.valid)
             formIsValidArr.push(orderForm[data].validation.valid)
         }
         console.log(!formIsValidArr.some((e)=>e===false))
@@ -135,7 +135,7 @@ class ContactData extends Component {
                                         validation : {...prevState.orderForm[id].validation, valid: this.checkValidity(value, prevState.orderForm[id].validation)},
                                         value}
                             },
-            formIsValid : this.checkFormValidity(prevState.orderForm)
+            formIsValid : this.checkFormValidity(prevState.orderForm, value, id, prevState.orderForm[id].validation)
         })
         
         })
