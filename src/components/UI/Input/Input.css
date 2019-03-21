@@ -22,3 +22,5 @@
 .InputElement:focus{
     background: palevioletred
 }
+
+.Valid{border:solid 1px green}

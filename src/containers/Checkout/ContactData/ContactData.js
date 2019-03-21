@@ -14,7 +14,10 @@ class ContactData extends Component {
                     type:"text",
                     placeholder: "your name"
                 },
-                value:""
+                value:"",
+                validation: {
+                    required:true
+                }
             },
             street :{
                 elementType: "input",
@@ -22,7 +25,11 @@ class ContactData extends Component {
                     type:"text",
                     placeholder: "your street"
                 },
-                value:""                
+                value:"",
+                validation: {
+                    valid:false,
+                    required:true
+                }            
             },
             zip :{
                 elementType: "input",
@@ -30,7 +37,13 @@ class ContactData extends Component {
                     type:"text",
                     placeholder: "zip"
                 },
-                value:"54"                
+                value:"",
+                validation: {
+                    valid:false,                    
+                    required:true,
+                    minLength : 3,
+                    maxLength : 5
+                }               
             },
             country :{
                 elementType: "input",
@@ -38,7 +51,11 @@ class ContactData extends Component {
                     type:"text",
                     placeholder: "country"
                 },
-                value:""                
+                value:"",
+                validation: {
+                    valid:false,                    
+                    required:true
+                }                
             },
             email :{
                 elementType: "email",
@@ -46,7 +63,11 @@ class ContactData extends Component {
                     type:"text",
                     placeholder: "email"
                 },
-                value:""                
+                value:"",
+                validation: {
+                    valid:false,                    
+                    required:true
+                }                
             },
             deliveryMethod :{
                 elementType: "select",
@@ -56,7 +77,11 @@ class ContactData extends Component {
                         {value:"cheap", display:"Cheap"},
                     ]
                 },
-                value:""                
+                value:"",
+                validation: {
+                    valid:true,                    
+                    required:true
+                }                
             },          
 
         },
@@ -64,7 +89,22 @@ class ContactData extends Component {
         loading:false
     }
 
+    checkValidity = (value, rules)=> {
+        let isValid = true 
 
+        if(rules.required){
+            isValid = value.trim() !== "" && isValid
+        }
+
+        if(rules.minLength){
+            isValid = value.length >= rules.minLength && isValid
+        }
+        if(rules.maxLength){
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        return isValid
+    }
 
     inputChangeHandler = (id) => (e)=> {
         const value = e.target.value
@@ -72,7 +112,8 @@ class ContactData extends Component {
         this.setState(prevState => ({
             ...prevState, 
                 orderForm: {...prevState.orderForm, 
-                                [id] : {...prevState.orderForm.name, 
+                                [id] : {...prevState.orderForm[id], 
+                                        validation : {...prevState.orderForm[id].validation, valid: this.checkValidity(value, prevState.orderForm[id].validation)},
                                         value}}
         }))
 
@@ -129,11 +170,13 @@ class ContactData extends Component {
 
                 {Object.entries(this.state.orderForm).map((input,i) => {
                     const id = input[0]
+
                     return <Input 
                         inputtype={input[1].elementType} 
                         elementConfig={input[1].elementConfig} 
                         pvalue={input[1].value} 
                         changed={this.inputChangeHandler(id)} 
+                        valid={input[1].validation.valid}
                         key={id} 
                         />
                     })

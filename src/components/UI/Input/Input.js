@@ -3,13 +3,15 @@ import classes from "./Input.css"
 
 const Input =(props)=> {
 
-  
+console.log(props.valid)  
+
+const valid = props.valid ? classes.Valid : null;
 
 let inputElement = null
 
 switch(props.inputtype){  
     case 'input':
-        inputElement = <input className={classes.InputElement} {...props.elementConfig} value={props.pvalue} onChange={props.changed}/>
+        inputElement = <input className={[classes.InputElement, valid].join(" ")} {...props.elementConfig} value={props.pvalue} onChange={props.changed}/>
         break
     case 'select' :
         inputElement =  
