@@ -81,14 +81,17 @@ class ContactData extends Component {
     orderHandler= (e)=>{
         e.preventDefault();
         this.setState({loading:true})
+        
+        const formData = {}
+        for(let data in this.state.orderForm)
+        {
+            formData[data] = this.state.orderForm[data].value
+        }
 
         const order = {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
-            customer: {
-                name : "bob",
-                expedition: "fast"
-            } 
+            customer: formData 
         }
 
         setTimeout(()=>{
@@ -97,6 +100,9 @@ class ContactData extends Component {
             .then(resp=> {
                 console.log(resp)
                 this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
+                this.props.history.push({
+                    pathname : "/"
+                });
             })
             .catch(error => console.log("catched"))
         },500)
