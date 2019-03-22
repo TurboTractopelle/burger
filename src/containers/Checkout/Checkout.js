@@ -17,10 +17,14 @@ onCheckoutContinueHandler = ()=>{
 render() {
     return (
         <div>
-            <CheckoutSummary ingredients={this.props.ingredients} onCheckoutCancelled={this.onCheckoutCancelledHandler} onCheckoutContinue={this.onCheckoutContinueHandler}/>
+            <CheckoutSummary 
+                ingredients={this.props.ingredients}
+                totalPrice={this.props.totalPrice}
+                onCheckoutCancelled={this.onCheckoutCancelledHandler}
+                onCheckoutContinue={this.onCheckoutContinueHandler}/>
             <Route 
                 path={this.props.match.path + "/contact-data"} 
-                render={(props)=>(<ContactData {...this.props} />)}
+                component={ContactData}
                 />
         </div>
     );
@@ -29,7 +33,8 @@ render() {
 
 const mapStateToProps= state =>{
     return({
-        ingredients: state.ingredients
+        ingredients: state.ingredients,
+        totalPrice: state.totalPrice
     })
 }
 
