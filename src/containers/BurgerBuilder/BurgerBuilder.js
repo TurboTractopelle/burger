@@ -14,27 +14,21 @@ import * as actionsTypes from "../../store/actionsTypes"
 class BurgerBuilder extends Component{
 
     state ={
-        totalPrice: 5,
         purchasable : false,
         purchasing:false,
         loading:false
     }
 
-
     purchaseContinue = () => {
 
         const query = [];
-        for(let item in this.state.ingredients){
-            query.push(encodeURIComponent(item) + "=" + this.state.ingredients[item])
+        for(let item in this.props.ingredients){
+            query.push(encodeURIComponent(item) + "=" + this.props.ingredients[item])
         }
         this.props.history.push({
             pathname : "/checkout",
             search: query.join("&")
         });
-
-
-
-
 
     }
 
@@ -47,23 +41,6 @@ class BurgerBuilder extends Component{
         this.setState({purchasing:true})
     }
 
-
-    removeIngredientHandler = (type)=>()=>{
-        this.setState(prevState=>{
-
-            const sumPurchasable = Object.keys(prevState.ingredients).reduce((a,k)=>{
-                return a + prevState.ingredients[k]
-            },0)
-
-            const newsPurchasable = !(sumPurchasable === 1 && prevState.ingredients[type]===1)         
-
-            const value = prevState.ingredients[type]
-            return value === 0 
-                ? {...prevState}
-                : {...prevState, ingredients:{...prevState.ingredients, [type]:prevState.ingredients[type]-1}, purchasable:newsPurchasable}
-        })
-
-    }
 
     render(){
         const {ingredients} = this.props
@@ -105,8 +82,6 @@ const mapDispatchToProps = (dispatch) => {
         onIngredientRemoved: (ingredientName) => ()=> dispatch({type:actionsTypes.REMOVE_INGREDIENT, ingredientName})        
     })
 }
-
-
 
 
 export default  connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios))
