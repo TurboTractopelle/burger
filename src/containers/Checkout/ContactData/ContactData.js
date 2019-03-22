@@ -87,7 +87,6 @@ class ContactData extends Component {
 
         },
         formIsValid : false,
-        ingredients: [],
         loading:false
     }
 
@@ -153,7 +152,7 @@ class ContactData extends Component {
         }
 
         const order = {
-            ingredients: this.state.ingredients,
+            ingredients: this.props.ingredients,
             price: this.state.totalPrice,
             customer: formData 
         }
@@ -174,13 +173,14 @@ class ContactData extends Component {
     }
 
     componentDidMount(){
-        const query = new URLSearchParams(this.props.location.search)
+        console.log(this.props)
+        /*const query = new URLSearchParams(this.props.location.search)
         const ingredients = {}
         for (let param of query.entries()){
             // [ "salad", "0" ]
             ingredients[param[0]] = param[1]
         }
-        this.setState({ingredients: ingredients})
+        this.setState({ingredients: ingredients})*/
     }
 
     render(){

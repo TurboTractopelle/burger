@@ -42,26 +42,7 @@ class BurgerBuilder extends Component{
             search: query.join("&")
         });
 
-        this.setState(prevState=>({...prevState, loading:true}))
 
-
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name : "bob",
-                expedition: "fast"
-            } 
-        }
-
-        setTimeout(()=>{
-            axios.post("/orders.json" , order)
-            .then(resp=> {
-                console.log(resp)
-                this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
-            })
-            .catch(error => console.log("catched"))
-        },500)
 
 
 
