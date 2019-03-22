@@ -27,20 +27,10 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinue = () => {
-
-        const query = [];
-        for(let item in this.props.ingredients){
-            query.push(encodeURIComponent(item) + "=" + this.props.ingredients[item])
-        }
-        this.props.history.push({
-            pathname : "/checkout",
-            search: query.join("&")
-        });
-
+        this.props.history.push("/checkout");
     }
 
     closeModal = ()=>{
-        console.log("click")
         this.setState({purchasing:false})
     }
     
@@ -60,7 +50,7 @@ class BurgerBuilder extends Component{
     return(
             <Aux>
                 <Modal testShow={this.state.purchasing} closeModal={this.closeModal}  >
-                    <OrderSummary ingredients={ingredients} closeModal={this.closeModal} purchaseContinue={this.purchaseContinue} price={this.state.totalPrice} loading={this.state.loading} />
+                    <OrderSummary ingredients={ingredients} closeModal={this.closeModal} purchaseContinue={this.purchaseContinue} price={this.props.totalPrice} loading={this.state.loading} />
                 </Modal>
                 <Burger ingredients={ingredients} />
                 <BuildControls
