@@ -19,6 +19,13 @@ class BurgerBuilder extends Component{
         loading:false
     }
 
+    updatePurchaseState =(ingredients) => {
+        const sum = Object.keys(ingredients)
+            .map( key => ingredients[key])
+            .reduce((acc,k)=> acc + k,0)
+        return sum > 0
+    }
+
     purchaseContinue = () => {
 
         const query = [];
@@ -61,8 +68,9 @@ class BurgerBuilder extends Component{
                     removeIngredientHandler={this.props.onIngredientRemoved}
                     disabledInfo={disabledInfo}
                     price={this.props.totalPrice}
-                    purchasable={this.state.purchasable}
-                    purchasingHandler={this.purchasingHandler}/>
+                    purchasable={this.updatePurchaseState(this.props.ingredients)}
+                    purchasingHandler={this.purchasingHandler}
+                    />
             </Aux>
         )
     }
