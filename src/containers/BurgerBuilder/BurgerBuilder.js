@@ -9,18 +9,12 @@ import axios from "../../axios-order"
 import {connect} from "react-redux"
 import * as actionsTypes from "../../store/actionsTypes"
 
-const INGREDIENT_PRICES= {
-    salad :0.3,
-    bacon :0.5,
-    cheese :1,
-    meat :2,
-    base : 4
-}
+
 
 class BurgerBuilder extends Component{
 
     state ={
-        totalPrice: INGREDIENT_PRICES["base"],
+        totalPrice: 5,
         purchasable : false,
         purchasing:false,
         loading:false
@@ -66,14 +60,14 @@ class BurgerBuilder extends Component{
             const value = prevState.ingredients[type]
             return value === 0 
                 ? {...prevState}
-                : {...prevState, ingredients:{...prevState.ingredients, [type]:prevState.ingredients[type]-1}, totalPrice: Math.round((prevState.totalPrice - INGREDIENT_PRICES[type])*100)/100, purchasable:newsPurchasable}
+                : {...prevState, ingredients:{...prevState.ingredients, [type]:prevState.ingredients[type]-1}, purchasable:newsPurchasable}
         })
 
     }
 
     render(){
         const {ingredients} = this.props
-        
+
         const disabledInfo = Object.keys(ingredients).reduce((a,k)=>{
             return a = ingredients[k] === 0 ? { ...a, [k]: true } : { ...a, [k]: false }
           }, {})
@@ -89,7 +83,7 @@ class BurgerBuilder extends Component{
                     addIngredientHandler={this.props.onIngredientAdded}
                     removeIngredientHandler={this.props.onIngredientRemoved}
                     disabledInfo={disabledInfo}
-                    price={this.state.totalPrice}
+                    price={this.props.totalPrice}
                     purchasable={this.state.purchasable}
                     purchasingHandler={this.purchasingHandler}/>
             </Aux>
@@ -99,7 +93,8 @@ class BurgerBuilder extends Component{
 
 const mapStateToProps = (state) => {
     return({
-        ingredients : state.ingredients
+        ingredients : state.ingredients,
+        totalPrice : state.totalPrice
     })
 }
 
