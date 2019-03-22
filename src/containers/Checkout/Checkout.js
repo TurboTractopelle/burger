@@ -11,7 +11,7 @@ onCheckoutCancelledHandler= ()=> {
     this.props.history.goBack()
 }
 onCheckoutContinueHandler = ()=>{
-    this.props.history.push("/contact-data");
+    this.props.history.push( this.props.match.path + "/contact-data");
 }
 
 render() {
