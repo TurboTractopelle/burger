@@ -116,7 +116,6 @@ class ContactData extends Component {
         for(let data in orderForm ){
             formIsValidArr.push(orderForm[data].validation.valid)
         }
-        console.log(!formIsValidArr.some((e)=>e===false))
         return !formIsValidArr.some((e)=>e===false)
 
     }
@@ -157,7 +156,6 @@ class ContactData extends Component {
             customer: formData 
         }
 
-        setTimeout(()=>{
 
             axios.post("/orders.json" , order)
             .then(resp=> {
@@ -166,22 +164,15 @@ class ContactData extends Component {
                 this.props.history.push({
                     pathname : "/"
                 });
+                console.log("gg")
             })
-            .catch(error => console.log("catched"))
-        },500)
+            //.catch(error => console.log("catched"))
+
 
     }
 
     componentDidMount(){
-        console.log(this.props)
-        /*const query = new URLSearchParams(this.props.location.search)
-        const ingredients = {}
-        for (let param of query.entries()){
-            // [ "salad", "0" ]
-            ingredients[param[0]] = param[1]
-        }
-        this.setState({ingredients: ingredients})*/
-    }
+   }
 
     render(){
 

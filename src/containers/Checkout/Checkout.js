@@ -35,13 +35,15 @@ onCheckoutContinueHandler = ()=>{
 }
 
 render() {
+    console.log(this.props)
+
     return (
         <div>
             <CheckoutSummary ingredients={this.state.ingredients} onCheckoutCancelled={this.onCheckoutCancelledHandler} onCheckoutContinue={this.onCheckoutContinueHandler}/>
             <Route 
                 path={this.props.match.path + "/contact-data"} 
                 //component={ContactData} 
-                render={(props)=>(<ContactData ingredients={this.state.ingredients}/>)}
+                render={(props)=>(<ContactData ingredients={this.state.ingredients} {...this.props} />)}
                 />
         </div>
     );
