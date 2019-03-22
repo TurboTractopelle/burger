@@ -6,6 +6,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from "../../axios-order"
+import {connect} from "react-redux"
 
 const INGREDIENT_PRICES= {
     salad :0.3,
@@ -18,12 +19,7 @@ const INGREDIENT_PRICES= {
 class BurgerBuilder extends Component{
 
     state ={
-        ingredients:{
-            salad:0,
-            bacon:0,
-            cheese:0,
-            meat:0
-        }, 
+
         totalPrice: INGREDIENT_PRICES["base"],
         purchasable : false,
         purchasing:false,
@@ -57,11 +53,6 @@ class BurgerBuilder extends Component{
         this.setState({purchasing:true})
     }
 
-    addIngredientHandler = (type)=>()=>{
-        this.setState(prevState=>{
-            return {...prevState, ingredients:{...prevState.ingredients, [type]:prevState.ingredients[type]+1}, totalPrice: Math.round((prevState.totalPrice + INGREDIENT_PRICES[type])*100)/100, purchasable:true}
-        })
-    }
 
     removeIngredientHandler = (type)=>()=>{
         this.setState(prevState=>{
