@@ -3,11 +3,13 @@ import classes from "./Order.css"
 
 const Order = (props)=>{
 
-    console.log(props.ingredients)
+    //console.log(props.ingredients)
     // { bacon: 1, cheese: 0, meat: 1, salad: 5 }
     // [  [["bacon"], [1]],   ...  ]
 
+
     const modifiedIngredients = Object.entries(props.ingredients)
+    console.log(modifiedIngredients)
 
     return(
     <div className={classes.Order}>

@@ -23,9 +23,10 @@ state={orders:[], loading: true}
     }
 
 render(){
+    console.log(this.state)
     return(
         <div>
-            {this.state.orders.map( item=>{
+            {this.state.orders.length >1 && this.state.orders.map( item=>{
                return <Order key={item.id} {...item} />
             })}             
         </div>
