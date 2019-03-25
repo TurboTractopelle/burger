@@ -7,7 +7,7 @@ import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from "../../axios-order"
 import {connect} from "react-redux"
-import * as actionsTypes from "../../store/actions/actionsTypes"
+import * as actions from "../../store/actions/burgerBuilder"
 
 
 
@@ -76,8 +76,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        onIngredientAdded: (ingredientName) => ()=> dispatch({type:actionsTypes.ADD_INGREDIENT, ingredientName}),
-        onIngredientRemoved: (ingredientName) => ()=> dispatch({type:actionsTypes.REMOVE_INGREDIENT, ingredientName})        
+        onIngredientAdded: (ingredientName) => ()=> dispatch(actions.addIngredient(ingredientName)),
+        onIngredientRemoved: (ingredientName) => ()=> dispatch(actions.removeIngredient(ingredientName))        
     })
 }
 
