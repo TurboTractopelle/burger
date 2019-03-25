@@ -7,7 +7,7 @@ import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from "../../axios-order"
 import {connect} from "react-redux"
-import * as actionsTypes from "../../store/actionsTypes"
+import * as actionsTypes from "../../store/actions/actionsTypes"
 
 
 
@@ -68,8 +68,8 @@ class BurgerBuilder extends Component{
 
 const mapStateToProps = (state) => {
     return({
-        ingredients : state.ingredients,
-        totalPrice : state.totalPrice
+        ingredients : state.burgerBuilder.ingredients,
+        totalPrice : state.burgerBuilder.totalPrice
     })
 }
 
