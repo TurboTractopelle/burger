@@ -44,28 +44,33 @@ class BurgerBuilder extends Component{
 
 
     render(){
+
         const {ingredients} = this.props
+        
 
         const disabledInfo = Object.keys(ingredients).reduce((a,k)=>{
             return a = ingredients[k] === 0 ? { ...a, [k]: true } : { ...a, [k]: false }
           }, {})
        
+          console.log(this.props)
+
 
     return(
-            <Aux>
-                <Modal testShow={this.state.purchasing} closeModal={this.closeModal}  >
-                    <OrderSummary ingredients={ingredients} closeModal={this.closeModal} purchaseContinue={this.purchaseContinue} price={this.props.totalPrice} loading={this.state.loading} />
-                </Modal>
-                <Burger ingredients={ingredients} />
-                <BuildControls
-                    addIngredientHandler={this.props.onIngredientAdded}
-                    removeIngredientHandler={this.props.onIngredientRemoved}
-                    disabledInfo={disabledInfo}
-                    price={this.props.totalPrice}
-                    purchasable={this.updatePurchaseState(this.props.ingredients)}
-                    purchasingHandler={this.purchasingHandler}
-                    />
-            </Aux>
+        <Aux>
+            {this.props.fetchFailed && <p style={{textAlign:"center"}}>{this.props.fetchFailed}</p> }
+        <Modal testShow={this.state.purchasing} closeModal={this.closeModal}  >
+            <OrderSummary ingredients={ingredients} closeModal={this.closeModal} purchaseContinue={this.purchaseContinue} price={this.props.totalPrice} loading={this.state.loading} />
+        </Modal>
+        <Burger ingredients={ingredients} />
+        <BuildControls
+            addIngredientHandler={this.props.onIngredientAdded}
+            removeIngredientHandler={this.props.onIngredientRemoved}
+            disabledInfo={disabledInfo}
+            price={this.props.totalPrice}
+            purchasable={this.updatePurchaseState(this.props.ingredients)}
+            purchasingHandler={this.purchasingHandler}
+            />
+    </Aux>
         )
     }
 }
@@ -73,7 +78,8 @@ class BurgerBuilder extends Component{
 const mapStateToProps = (state) => {
     return({
         ingredients : state.burgerBuilder.ingredients,
-        totalPrice : state.burgerBuilder.totalPrice
+        totalPrice : state.burgerBuilder.totalPrice,
+        fetchFailed : state.burgerBuilder.fetchFailed
     })
 }
 
@@ -83,7 +89,6 @@ const mapDispatchToProps = (dispatch) => {
         onIngredientAdded: (ingredientName) => ()=> dispatch(actions.addIngredient(ingredientName)),
         onIngredientRemoved: (ingredientName) => ()=> dispatch(actions.removeIngredient(ingredientName)),
         initIngredient: () => dispatch(actions.initIngredient())
-
     })
 }
 

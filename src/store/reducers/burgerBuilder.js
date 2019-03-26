@@ -1,13 +1,9 @@
 import * as actionTypes from "../actions/actionTypes"
 
 const initialState= {
-    ingredients:{
-        salad:0,
-        bacon:0,
-        cheese:0,
-        meat:0,
-    }, 
-    totalPrice: 4
+    ingredients: {}, 
+    totalPrice: 4,
+    fetchFailed:false
 }
 
 const INGREDIENT_PRICES= {
@@ -50,6 +46,21 @@ switch(action.type){
                     },
             totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "remove")
         }
+
+        case actionTypes.SET_INGREDIENTS : 
+        return {
+            ...state, 
+            ingredients: action.ingredients
+        }
+
+        case actionTypes.FETCH_FAILED : 
+        console.log("inside reducer", action)
+        return {
+            ...state, 
+            fetchFailed: action.msg
+        }
+
+
     default : 
         return state
 }
