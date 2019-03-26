@@ -9,17 +9,32 @@ const actionCreactor = (type, ...autreArgs) => {
     }
 }
 
-export const purchaseBurgerSuccess = (id, orderData) => actionCreactor(actionTypes.PURCHASE_BURGER_SUCCESS, "id", "orderData")
-export const purchaseBurgerFail = (error) => actionCreactor(actionTypes.PURCHASE_BURGER_FAIL, "error")
+export const purchaseBurgerSuccess = actionCreactor(actionTypes.PURCHASE_BURGER_SUCCESS, "id", "orderData")
+export const purchaseBurgerFail = actionCreactor(actionTypes.PURCHASE_BURGER_FAIL, "error")
 
 
-export const purchaseBurgerStart = (orderData) => {
+export const purchaseBurgerStart = () => {
+    return ({
+        type: actionTypes.PURCHASE_BURGER_START
+    })
+}
+
+export const purchaseBurger = (orderData) => {
     return dispatch => {
-        axios.post("/orders.json" , orderData)
-        .then(resp=> {
-            console.log(resp.data)
-            dispatch(purchaseBurgerSuccess(resp.data,orderData))
-        })
-        .catch(error=> dispatch(purchaseBurgerFail(error)))
+
+        dispatch(purchaseBurgerStart());
+
+        setTimeout(()=>{
+
+            axios.post("/orders.json" , orderData)
+            .then(resp=> {
+                console.log("DATA", resp.data)
+                dispatch(purchaseBurgerSuccess(resp.data, orderData))
+            })
+            .catch(error=> dispatch(purchaseBurgerFail(error)))
+
+        },2000)
+
+
     }
 }

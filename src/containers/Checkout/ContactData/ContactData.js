@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import classes from './ContactData.css'
 import Button from "../../../components/UI/Button/Button"
 import Input from "../../../components/UI/Input/Input"
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
+import axios from "../../../axios-order"
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import {connect} from "react-redux"
 import * as actions from "../../../store/actions/order"
 
@@ -19,7 +20,7 @@ class ContactData extends Component {
                 value:"",
                 validation: {
                     valid:false,                    
-                    required:true
+                    required:false
                 }
             },
             street :{
@@ -31,7 +32,7 @@ class ContactData extends Component {
                 value:"",
                 validation: {
                     valid:false,
-                    required:true
+                    required:false
                 }            
             },
             zip :{
@@ -43,8 +44,8 @@ class ContactData extends Component {
                 value:"",
                 validation: {
                     valid:false,                    
-                    required:true,
-                    minLength : 3,
+                    required:false,
+                    minLength : 0,
                     maxLength : 5
                 }               
             },
@@ -57,7 +58,7 @@ class ContactData extends Component {
                 value:"",
                 validation: {
                     valid:false,                    
-                    required:true
+                    required:false
                 }                
             },
             email :{
@@ -69,7 +70,7 @@ class ContactData extends Component {
                 value:"",
                 validation: {
                     valid:false,                    
-                    required:true
+                    required:false
                 }                
             },
             deliveryMethod :{
@@ -83,7 +84,7 @@ class ContactData extends Component {
                 value:"fast", // besoin de préciser, sinon dans UI on voit une sélection, et à la validation il est est true en +
                 validation: {
                     valid:true,                    
-                    required:true
+                    required:false
                 }                
             },          
 
@@ -159,7 +160,7 @@ class ContactData extends Component {
         }
 
         console.log(order)
-        this.props.purchaseBurgerStart(order)
+        this.props.purchaseBurger(order)
 
           /*  axios.post("/orders.json" , order)
             .then(resp=> {
@@ -179,7 +180,7 @@ class ContactData extends Component {
    }
 
     render(){
-
+        console.log(this.props)
        return(
             <div className={classes.ContactData}>
                 <h4>Your data</h4>
@@ -199,6 +200,9 @@ class ContactData extends Component {
                     })
                 }
                 <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>                
+                <Button btnType="Success" >ORDER</Button>                
+
+                {this.props.loading && <p>LOADING...</p>}
                 </form>
             </div>
         )
@@ -210,15 +214,16 @@ class ContactData extends Component {
 const mapStateToProps = state => {
     return({
         totalPrice : state.burgerBuilder.totalPrice,
-        ingredients: state.burgerBuilder.ingredients
+        ingredients: state.burgerBuilder.ingredients,
+        loading: state.order.loading
     })
 }
 
 
 const dispatchToProps = dispatch => {
     return({
-        purchaseBurgerStart: (orderData)=> dispatch(actions.purchaseBurgerStart(orderData))
+        purchaseBurger: (orderData)=> dispatch(actions.purchaseBurger(orderData))
     })
 }
 
-export default connect(mapStateToProps, dispatchToProps)(withErrorHandler(ContactData))
+export default connect(mapStateToProps, dispatchToProps)(withErrorHandler(ContactData,axios))
