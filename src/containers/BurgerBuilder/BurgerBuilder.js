@@ -52,7 +52,6 @@ class BurgerBuilder extends Component{
             return a = ingredients[k] === 0 ? { ...a, [k]: true } : { ...a, [k]: false }
           }, {})
        
-          console.log(this.props)
 
 
     return(

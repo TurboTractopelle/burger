@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import classes from './ContactData.css'
 import Button from "../../../components/UI/Button/Button"
 import Input from "../../../components/UI/Input/Input"
-import axios from "../../../axios-order"
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import {connect} from "react-redux"
+import * as actions from "../../../store/actions/order"
 
 class ContactData extends Component {
 
@@ -157,8 +158,10 @@ class ContactData extends Component {
             customer: formData 
         }
 
+        console.log(order)
+        this.props.purchaseBurgerStart(order)
 
-            axios.post("/orders.json" , order)
+          /*  axios.post("/orders.json" , order)
             .then(resp=> {
                 console.log(resp)
                 this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
@@ -166,8 +169,8 @@ class ContactData extends Component {
                     pathname : "/"
                 });
                 console.log("gg")
-            })
-            //.catch(error => console.log("catched"))
+            })*/
+
 
 
     }
@@ -206,10 +209,16 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return({
-        totalPrice : state.totalPrice,
-        ingredients: state.ingredients
+        totalPrice : state.burgerBuilder.totalPrice,
+        ingredients: state.burgerBuilder.ingredients
     })
 }
 
 
-export default connect(mapStateToProps)(ContactData)
+const dispatchToProps = dispatch => {
+    return({
+        purchaseBurgerStart: (orderData)=> dispatch(actions.purchaseBurgerStart(orderData))
+    })
+}
+
+export default connect(mapStateToProps, dispatchToProps)(withErrorHandler(ContactData))
