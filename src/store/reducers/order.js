@@ -14,9 +14,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.PURCHASE_BURGER_SUCCESS:
         const newOrder = {
             ...action.orderData,
-            id : action.order.id
+            id : action.id
         }
-        console.log("reducer PURCHASE_BURGER_SUCCESS")
         return {...state, loading:false, orders: state.orders.concat(newOrder)}
 
         case actionTypes.PURCHASE_BURGER_FAIL:
