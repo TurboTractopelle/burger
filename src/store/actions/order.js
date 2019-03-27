@@ -19,14 +19,14 @@ export const purchaseBurgerStart = () => {
     })
 }
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData, token) => {
     return dispatch => {
 
         dispatch(purchaseBurgerStart());
 
         setTimeout(()=>{
 
-            axios.post("/orders.json" , orderData)
+            axios.post("/orders.json?auth=" + token , orderData)
             .then(resp=> {
                 console.log("DATA", resp.data)
                 dispatch(purchaseBurgerSuccess(resp.data.name, orderData))
