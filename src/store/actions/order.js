@@ -39,3 +39,5 @@ export const purchaseBurger = (orderData) => {
 
     }
 }
+
+export const purchaseInit = actionCreactor(actionTypes.PURCHASE_INIT)
