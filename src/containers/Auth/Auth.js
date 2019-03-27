@@ -5,6 +5,7 @@ import classes from "./Auth.css"
 import * as actions from "../../store/actions/auth"
 import {connect} from "react-redux"
 
+
 class Auth extends Component {
 
 state ={
@@ -37,9 +38,13 @@ state ={
             }                
         },
 
-}
+},
+    isSignUp: true, // affiche la creation de compte par défault
 }
 
+switchAuthModeHandler = ()=>{
+    this.setState(prevState => ({...prevState, isSignUp: !prevState.isSignUp}))
+}
 
 inputChangeHandler = (id) => (e) => {
     const value = e.target.value
@@ -93,7 +98,7 @@ checkFormValidity= (orderForm)=>{
 submitHandler = (e) => {
     e.preventDefault()
     const {controls} = this.state
-    this.props.auth(controls.email.value, controls.email.password)
+    this.props.auth(controls.email.value, controls.password.value, this.state.isSignUp)
 }
 
 
@@ -119,10 +124,12 @@ Object.entries(this.state.controls).map((input,i) => {
 
     return (
         <div className={classes.ContactData}>
+        <h2>{this.state.isSignUp ? "SIGN UP" : "SIGN IN" }</h2>
             <form onSubmit={this.submitHandler}>
                 {form}
                 <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>                
             </form>
+            <Button btnType="Danger" clicked={this.switchAuthModeHandler}>SWITCH TO {!this.state.isSignUp ? "SIGN UP" : "SIGN IN" }</Button>                
         </div>
     );
 }
@@ -136,7 +143,7 @@ const mapStateToProps = state => {
 
 const dispatchToProps = dispatch => {
     return({
-        auth : (email,password)=> dispatch(actions.auth(email,password))
+        auth : (email,password, isSignUp)=> dispatch(actions.auth(email,password, isSignUp))
     })
 }
 
