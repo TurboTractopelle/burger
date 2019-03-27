@@ -41,3 +41,26 @@ export const purchaseBurger = (orderData) => {
 }
 
 export const purchaseInit = actionCreactor(actionTypes.PURCHASE_INIT)
+
+export const fetchOrdersStart = actionCreactor(actionTypes.FETCH_ORDERS_START)
+export const fetchOrdersSuccess = actionCreactor(actionTypes.FETCH_ORDERS_SUCCESS, "orders")
+export const fetchOrdersFail = actionCreactor(actionTypes.FETCH_ORDERS_FAIL, "error")
+
+export const fetchOrders = ()=> {
+
+    return dispatch => {
+    axios.get("/orders.json")
+    .then(res => {
+        const fetchOrders = [];
+
+        for (let key in res.data){
+            fetchOrders.push( {...res.data[key], id:key} )
+        }
+        dispatch(fetchOrdersSuccess(fetchOrders))        
+
+    })
+    .catch(error => fetchOrdersFail(error))
+    }
+
+}
+
