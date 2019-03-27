@@ -12,6 +12,13 @@ const actionCreactor = (type, ...autreArgs) => {
 export const authStart = actionCreactor(actionTypes.AUTH_START)
 export const authSuccess = actionCreactor(actionTypes.AUTH_SUCCESS, "idToken", "userId")
 export const authFail = actionCreactor(actionTypes.AUTH_FAIL, "error")
+export const authStop = actionCreactor(actionTypes.AUTH_STOP,)
+
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        setTimeout(()=> dispatch(authStop()), expirationTime *1000)
+    }
+}
 
 export const auth = (email, password, isSignUp) => {
     return dispatch => {
@@ -24,7 +31,11 @@ export const auth = (email, password, isSignUp) => {
         }
 
         axios.post(url, authData)
-            .then(res => dispatch(authSuccess(res.data.idToken, res.data.localId)))
+            .then(res => {
+                dispatch(authSuccess(res.data.idToken, res.data.localId))
+                dispatch(checkAuthTimeout(res.data.expiresIn))
+            })
+
             .catch(error =>  dispatch(authFail(error.response.data.error.message)))
 
     }

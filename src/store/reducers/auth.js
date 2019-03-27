@@ -27,6 +27,9 @@ const auth = (state = initialState, action)=>{
         case actionTypes.AUTH_FAIL:    
         return ({...state, loading:false, error:action.error})       
 
+        case actionTypes.AUTH_STOP:    
+        return ({...state, error:true, token:null, userId:null})  
+
         default: return state
 
     }
