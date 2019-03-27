@@ -159,22 +159,8 @@ class ContactData extends Component {
             customer: formData 
         }
 
-        console.log(order)
         this.props.purchaseBurger(order)
-
-          /*  axios.post("/orders.json" , order)
-            .then(resp=> {
-                console.log(resp)
-                this.setState(prevState=>({...prevState, loading:false, purchasing:false}))
-                this.props.history.push({
-                    pathname : "/"
-                });
-                console.log("gg")
-            })*/
-
-
-
-    }
+   }
 
     componentDidMount(){
    }
