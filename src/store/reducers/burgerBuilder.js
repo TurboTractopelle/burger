@@ -28,10 +28,7 @@ const getTotalPrice = (ingredients, ingredient, action)=>{
     return value
 }
 
-const reducer = (state = initialState, action) => {
-
-switch(action.type){
-    case actionTypes.ADD_INGREDIENT : 
+const addIngredient = (state,action) => {
         // exemple avec utility function 
         const newIngredient = {[action.ingredientName]: state.ingredients[action.ingredientName] + 1}
         const newIngredients = updateObject(state.ingredients, newIngredient)
@@ -40,37 +37,40 @@ switch(action.type){
             totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "add")
         }
         return updateObject(state, newState)
-        case actionTypes.REMOVE_INGREDIENT :  
-        return {
-            ...state, 
-            ingredients:{...state.ingredients,
-                        [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-                    },
-            totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "remove")
-        }
+}
 
-        case actionTypes.SET_INGREDIENTS : 
-        return {
-            ...state, 
-            ingredients: {
-                salad: action.ingredients.salad,
-                bacon: action.ingredients.bacon,
-                cheese: action.ingredients.cheese,                
-                meat: action.ingredients.meat 
-            },
-            totalPrice: INGREDIENT_PRICES["base"]
-        }
+const removeIngredient= (state,action)=>{
+    return {
+        ...state, 
+        ingredients:{...state.ingredients,
+                    [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+                },
+        totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "remove")
+    }
+}
 
-        case actionTypes.FETCH_FAILED : 
-        console.log("inside reducer", action)
-        return {
-            ...state, 
-            fetchFailed: action.msg
-        }
+const setIngredients = (state,action)=>{
+    return {
+        ...state, 
+        ingredients: {
+            salad: action.ingredients.salad,
+            bacon: action.ingredients.bacon,
+            cheese: action.ingredients.cheese,                
+            meat: action.ingredients.meat 
+        },
+        totalPrice: INGREDIENT_PRICES["base"]
+    }
+}
 
 
-    default : 
-        return state
+const reducer = (state = initialState, action) => {
+
+switch(action.type){
+    case actionTypes.ADD_INGREDIENT : return addIngredient(state,action)
+    case actionTypes.REMOVE_INGREDIENT : return removeIngredient(state,action) 
+    case actionTypes.SET_INGREDIENTS : return setIngredients(state,action)
+    case actionTypes.FETCH_FAILED : return updateObject(state, {fetchFailed: action.msg})
+    default : return state
 }
 
 }
