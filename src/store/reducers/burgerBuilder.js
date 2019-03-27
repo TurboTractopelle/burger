@@ -55,7 +55,8 @@ switch(action.type){
                 bacon: action.ingredients.bacon,
                 cheese: action.ingredients.cheese,                
                 meat: action.ingredients.meat 
-            }
+            },
+            totalPrice: INGREDIENT_PRICES["base"]
         }
 
         case actionTypes.FETCH_FAILED : 

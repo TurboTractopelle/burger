@@ -11,6 +11,10 @@ componentWillMount(){
     this.props.purchaseInit()
 }
 
+componentWillUnmount(){
+    this.props.purchaseInit() 
+}
+
 onCheckoutCancelledHandler= ()=> {
     this.props.history.goBack()
 }
