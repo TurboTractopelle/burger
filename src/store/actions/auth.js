@@ -9,8 +9,8 @@ const actionCreactor = (type, ...autreArgs) => {
     }
 }
 
-export const authStart = actionCreactor(actionTypes.AUTH_SUCCESS)
-export const authSuccess = actionCreactor(actionTypes.AUTH_SUCCESS, "data")
+export const authStart = actionCreactor(actionTypes.AUTH_START)
+export const authSuccess = actionCreactor(actionTypes.AUTH_SUCCESS, "idToken", "userId")
 export const authFail = actionCreactor(actionTypes.AUTH_FAIL, "error")
 
 export const auth = (email, password, isSignUp) => {
@@ -24,8 +24,8 @@ export const auth = (email, password, isSignUp) => {
         }
 
         axios.post(url, authData)
-            .then(res => authSuccess(res.data))
-            .catch(error => authFail(error.message))
+            .then(res => dispatch(authSuccess(res.data.idToken, res.data.localId)))
+            .catch(error =>  dispatch(authFail(error.response.data.error.message)))
 
     }
 }

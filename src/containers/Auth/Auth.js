@@ -124,12 +124,13 @@ Object.entries(this.state.controls).map((input,i) => {
 
     return (
         <div className={classes.ContactData}>
-        <h2>{this.state.isSignUp ? "SIGN UP" : "SIGN IN" }</h2>
+        <h2>{this.state.isSignUp ? "CREER COMPTE" : "SE CONNECTER" }</h2>
+        {this.props.error}
             <form onSubmit={this.submitHandler}>
                 {form}
-                <Button btnType="Success" disabled={!this.state.formIsValid}>SUBMIT</Button>                
+                <Button btnType="Success" >SUBMIT</Button>                
             </form>
-            <Button btnType="Danger" clicked={this.switchAuthModeHandler}>SWITCH TO {!this.state.isSignUp ? "SIGN UP" : "SIGN IN" }</Button>                
+            <Button btnType="Danger" clicked={this.switchAuthModeHandler}>SWITCH TO {!this.state.isSignUp ? "CREER COMPTE" : "SE CONNECTER" }</Button>                
         </div>
     );
 }
