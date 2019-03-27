@@ -30,7 +30,7 @@ const reducer = (state = initialState, action) => {
         return {...state, purchased:false}  
 
         case actionTypes.FETCH_ORDERS_START:
-        return {...state, loading:true}
+        return {...state, loading:true, error:false}
 
         case actionTypes.FETCH_ORDERS_SUCCESS:
         return {...state, loading:false, orders: action.orders}       

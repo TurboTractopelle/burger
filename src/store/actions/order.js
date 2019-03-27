@@ -29,7 +29,6 @@ export const purchaseBurger = (orderData) => {
             axios.post("/orders.json" , orderData)
             .then(resp=> {
                 console.log("DATA", resp.data)
-                console.log(purchaseBurgerSuccess(resp.data, orderData))
                 dispatch(purchaseBurgerSuccess(resp.data.name, orderData))
             })
             .catch(error=> dispatch(purchaseBurgerFail(error)))
@@ -46,13 +45,13 @@ export const fetchOrdersStart = actionCreactor(actionTypes.FETCH_ORDERS_START)
 export const fetchOrdersSuccess = actionCreactor(actionTypes.FETCH_ORDERS_SUCCESS, "orders")
 export const fetchOrdersFail = actionCreactor(actionTypes.FETCH_ORDERS_FAIL, "error")
 
-export const fetchOrders = ()=> {
+export const fetchOrders = (token)=> {
 
     return dispatch => {
 
     dispatch(fetchOrdersStart())
 
-    axios.get("/orders.json")
+    axios.get("/orders.json?auth=" + token)
     .then(res => {
         const fetchOrders = [];
 
