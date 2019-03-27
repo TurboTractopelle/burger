@@ -49,6 +49,9 @@ export const fetchOrdersFail = actionCreactor(actionTypes.FETCH_ORDERS_FAIL, "er
 export const fetchOrders = ()=> {
 
     return dispatch => {
+
+    dispatch(fetchOrdersStart())
+
     axios.get("/orders.json")
     .then(res => {
         const fetchOrders = [];

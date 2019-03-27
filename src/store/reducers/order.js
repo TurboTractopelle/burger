@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
         return {...state, loading:true}
 
         case actionTypes.FETCH_ORDERS_SUCCESS:
-        return {...state, loading:false, order: [...state.orders, action.orders]}       
+        return {...state, loading:false, orders: action.orders}       
 
         case actionTypes.FETCH_ORDERS_FAIL:
         return {...state, loading:false, error: action.error}        
