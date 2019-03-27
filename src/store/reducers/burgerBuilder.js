@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes"
+import {updateObject} from "./utility"
 
 const initialState= {
     ingredients: {}, 
@@ -30,14 +31,15 @@ const getTotalPrice = (ingredients, ingredient, action)=>{
 const reducer = (state = initialState, action) => {
 
 switch(action.type){
-    case actionTypes.ADD_INGREDIENT :  
-        return {
-            ...state, 
-            ingredients:{...state.ingredients,
-                        [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-                    },
+    case actionTypes.ADD_INGREDIENT : 
+        // exemple avec utility function 
+        const newIngredient = {[action.ingredientName]: state.ingredients[action.ingredientName] + 1}
+        const newIngredients = updateObject(state.ingredients, newIngredient)
+        const newState = {
+            ingredients : newIngredients,
             totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "add")
         }
+        return updateObject(state, newState)
         case actionTypes.REMOVE_INGREDIENT :  
         return {
             ...state, 
