@@ -14,9 +14,10 @@ state={orders:[], loading: true}
     }
 
 render(){
-    console.log(this.props.orders)
+
     return(
         <div>
+            {this.props.error && <p>{this.props.error}</p>}
             {this.props.loading && <p>LOADING...</p>}
             {this.props.orders.length >1 && this.props.orders.map( item=>{
                return <Order key={item.id} {...item} />
@@ -30,7 +31,8 @@ render(){
 const mapStateToProps = state => {
     return({
         loading: state.order.loading,
-        orders: state.order.orders
+        orders: state.order.orders,
+        error: state.order.error
     })
 }
 

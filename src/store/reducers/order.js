@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
         return {...state, loading:false, purchased:true, orders: state.orders.concat(newOrder)}
 
         case actionTypes.PURCHASE_BURGER_FAIL:
-        return {...state, loading:false}
+        return {...state, loading:false, error:true}
 
         case actionTypes.PURCHASE_BURGER_START:
         return {...state, loading:true}   
@@ -36,6 +36,7 @@ const reducer = (state = initialState, action) => {
         return {...state, loading:false, orders: action.orders}       
 
         case actionTypes.FETCH_ORDERS_FAIL:
+        console.log( action.error )
         return {...state, loading:false, error: action.error}        
     
         default:

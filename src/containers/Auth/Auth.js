@@ -121,11 +121,10 @@ Object.entries(this.state.controls).map((input,i) => {
 )
 
 
-
     return (
         <div className={classes.ContactData}>
         <h2>{this.state.isSignUp ? "CREER COMPTE" : "SE CONNECTER" }</h2>
-        {this.props.error}
+        {this.props.auth.error && <p>ERROR</p>}
             <form onSubmit={this.submitHandler}>
                 {form}
                 <Button btnType="Success" >SUBMIT</Button>                
