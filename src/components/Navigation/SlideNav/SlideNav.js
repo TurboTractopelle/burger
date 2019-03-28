@@ -13,7 +13,7 @@ return (
                 <Logo />
             </div>
             <nav>
-                <NavigationItems />
+                <NavigationItems isAuthenticated={props.isAuthenticated} />
             </nav>
         </div>
         <BackDrop testShow={props.showBackdrop} closeModal={props.closeModal} />

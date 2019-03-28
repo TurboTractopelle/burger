@@ -13,7 +13,7 @@ return (
 
             <SlideNav showMenu={props.showMenu} />
             <nav className={classes.nav}>
-                <NavigationItems />
+                <NavigationItems  isAuthenticated={props.isAuthenticated} />
             </nav>
             
         </header>
