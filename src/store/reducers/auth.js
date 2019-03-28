@@ -33,6 +33,10 @@ const auth = (state = initialState, action)=>{
         case actionTypes.LOGOUT:
         return ({...state, token:null, userId:null})
 
+        case actionTypes.SET_AUTH_REDIRECT_PATH:
+        return ({...state, authRedirectPath: "/checkout"})
+
+
         default: return state
 
     }

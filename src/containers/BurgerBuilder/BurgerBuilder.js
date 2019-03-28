@@ -8,7 +8,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from "../../axios-order"
 import {connect} from "react-redux"
 import * as actions from "../../store/actions/burgerBuilder"
-
+import {setAuthRedirectPath} from "../../store/actions/auth"
 
 
 class BurgerBuilder extends Component{
@@ -31,7 +31,7 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinue = () => {
-        this.props.history.push("/checkout");
+        this.props.history.push("/checkout")
     }
 
     closeModal = ()=>{
@@ -39,7 +39,9 @@ class BurgerBuilder extends Component{
     }
     
     purchasingHandler= ()=>{
-        this.setState({purchasing:true})
+        this.props.isAuthenticated 
+        ? this.setState({purchasing:true})
+        : this.props.history.push("/auth")
     }
 
 
@@ -53,7 +55,6 @@ class BurgerBuilder extends Component{
           }, {})
        
 
-
     return(
         <Aux>
             {this.props.fetchFailed && <p style={{textAlign:"center"}}>{this.props.fetchFailed}</p> }
@@ -62,6 +63,7 @@ class BurgerBuilder extends Component{
         </Modal>
         <Burger ingredients={ingredients} />
         <BuildControls
+            isAuthenticated={this.props.isAuthenticated}
             addIngredientHandler={this.props.onIngredientAdded}
             removeIngredientHandler={this.props.onIngredientRemoved}
             disabledInfo={disabledInfo}
@@ -78,7 +80,8 @@ const mapStateToProps = (state) => {
     return({
         ingredients : state.burgerBuilder.ingredients,
         totalPrice : state.burgerBuilder.totalPrice,
-        fetchFailed : state.burgerBuilder.fetchFailed
+        fetchFailed : state.burgerBuilder.fetchFailed,
+        isAuthenticated : state.auth.token !== null
     })
 }
 
@@ -87,7 +90,8 @@ const mapDispatchToProps = (dispatch) => {
     return({
         onIngredientAdded: (ingredientName) => ()=> dispatch(actions.addIngredient(ingredientName)),
         onIngredientRemoved: (ingredientName) => ()=> dispatch(actions.removeIngredient(ingredientName)),
-        initIngredient: () => dispatch(actions.initIngredient())
+        initIngredient: () => dispatch(actions.initIngredient()),
+        setAuthRedirectPath: () => dispatch(setAuthRedirectPath())
     })
 }
 

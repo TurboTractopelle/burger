@@ -41,5 +41,7 @@ export const auth = (email, password, isSignUp) => {
     }
 }
 
+export const setAuthRedirectPath = actionCreactor(actionTypes.SET_AUTH_REDIRECT_PATH, "path")
+
 
 export const logout = actionCreactor(actionTypes.LOGOUT)

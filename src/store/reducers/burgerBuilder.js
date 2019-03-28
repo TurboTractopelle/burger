@@ -4,7 +4,9 @@ import {updateObject} from "./utility"
 const initialState= {
     ingredients: {}, 
     totalPrice: 4,
-    fetchFailed:false
+    fetchFailed:false,
+    building: false,
+    authRedirectPath: "/"
 }
 
 const INGREDIENT_PRICES= {
@@ -34,7 +36,8 @@ const addIngredient = (state,action) => {
         const newIngredients = updateObject(state.ingredients, newIngredient)
         const newState = {
             ingredients : newIngredients,
-            totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "add")
+            totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "add"),
+            building: true
         }
         return updateObject(state, newState)
 }
@@ -45,7 +48,8 @@ const removeIngredient= (state,action)=>{
         ingredients:{...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                 },
-        totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "remove")
+        totalPrice : getTotalPrice(state.ingredients, action.ingredientName, "remove"),
+        building: true        
     }
 }
 
@@ -58,7 +62,8 @@ const setIngredients = (state,action)=>{
             cheese: action.ingredients.cheese,                
             meat: action.ingredients.meat 
         },
-        totalPrice: INGREDIENT_PRICES["base"]
+        totalPrice: INGREDIENT_PRICES["base"],
+        building: false        
     }
 }
 
