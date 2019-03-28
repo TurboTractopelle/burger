@@ -4,7 +4,7 @@ import Input from "../../components/UI/Input/Input"
 import classes from "./Auth.css"
 import * as actions from "../../store/actions/auth"
 import {connect} from "react-redux"
-
+import {Redirect} from "react-router-dom"
 
 class Auth extends Component {
 
@@ -125,11 +125,14 @@ Object.entries(this.state.controls).map((input,i) => {
         <div className={classes.ContactData}>
         <h2>{this.state.isSignUp ? "CREER COMPTE" : "SE CONNECTER" }</h2>
         {this.props.auth.error && <p>ERROR</p>}
+        {this.props.isAuthenticated && <Redirect to="/" /> }        
             <form onSubmit={this.submitHandler}>
                 {form}
                 <Button btnType="Success" >SUBMIT</Button>                
             </form>
             <Button btnType="Danger" clicked={this.switchAuthModeHandler}>SWITCH TO {!this.state.isSignUp ? "CREER COMPTE" : "SE CONNECTER" }</Button>                
+
+
         </div>
     );
 }
@@ -137,7 +140,8 @@ Object.entries(this.state.controls).map((input,i) => {
 
 const mapStateToProps = state => {
     return ({
-        error : state.auth.error
+        error : state.auth.error,
+        isAuthenticated : state.auth.token !== null
     })
 }
 
