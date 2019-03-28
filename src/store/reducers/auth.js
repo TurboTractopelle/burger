@@ -30,6 +30,9 @@ const auth = (state = initialState, action)=>{
         case actionTypes.AUTH_STOP:    
         return ({...state, error:true, token:null, userId:null})  
 
+        case actionTypes.LOGOUT:
+        return ({...state, token:null, userId:null})
+
         default: return state
 
     }

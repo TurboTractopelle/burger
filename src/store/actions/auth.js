@@ -40,3 +40,6 @@ export const auth = (email, password, isSignUp) => {
 
     }
 }
+
+
+export const logout = actionCreactor(actionTypes.LOGOUT)
