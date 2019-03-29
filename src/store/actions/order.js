@@ -45,13 +45,15 @@ export const fetchOrdersStart = actionCreactor(actionTypes.FETCH_ORDERS_START)
 export const fetchOrdersSuccess = actionCreactor(actionTypes.FETCH_ORDERS_SUCCESS, "orders")
 export const fetchOrdersFail = actionCreactor(actionTypes.FETCH_ORDERS_FAIL, "error")
 
-export const fetchOrders = (token)=> {
+export const fetchOrders = (token, userId)=> {
 
     return dispatch => {
 
     dispatch(fetchOrdersStart())
 
-    axios.get("/orders.json?auth=" + token)
+    const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"'
+
+    axios.get("/orders.json" + queryParams)
     .then(res => {
         const fetchOrders = [];
 
