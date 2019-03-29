@@ -42,6 +42,15 @@ state ={
     isSignUp: true, // affiche la creation de compte par défault
 }
 
+componentDidMount(){
+    if(!this.props.building && this.props.setAuthRedirectPath !=='/' ){
+        // when not building a burger
+        this.props.onSetAuthRedirectPath()
+    }
+    
+}
+
+
 switchAuthModeHandler = ()=>{
     this.setState(prevState => ({...prevState, isSignUp: !prevState.isSignUp}))
 }
@@ -120,12 +129,18 @@ Object.entries(this.state.controls).map((input,i) => {
     })
 )
 
+    let redirect = null
+    if(this.props.isAuthenticated){
+        redirect = <Redirect to={this.props.authRedirectPath} />
+    }
 
     return (
         <div className={classes.ContactData}>
         <h2>{this.state.isSignUp ? "CREER COMPTE" : "SE CONNECTER" }</h2>
         {this.props.auth.error && <p>ERROR</p>}
-        {this.props.isAuthenticated && <Redirect to="/" /> }        
+
+        {redirect } 
+
             <form onSubmit={this.submitHandler}>
                 {form}
                 <Button btnType="Success" >SUBMIT</Button>                
@@ -141,13 +156,16 @@ Object.entries(this.state.controls).map((input,i) => {
 const mapStateToProps = state => {
     return ({
         error : state.auth.error,
-        isAuthenticated : state.auth.token !== null
+        isAuthenticated : state.auth.token !== null,
+        building: state.burgerBuilder.building,
+        authRedirectPath : state.burgerBuilder.authRedirectPath
     })
 }
 
 const dispatchToProps = dispatch => {
     return({
-        auth : (email,password, isSignUp)=> dispatch(actions.auth(email,password, isSignUp))
+        auth : (email,password, isSignUp)=> dispatch(actions.auth(email,password, isSignUp)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/"))
     })
 }
 
