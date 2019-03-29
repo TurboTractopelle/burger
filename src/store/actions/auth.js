@@ -32,6 +32,14 @@ export const auth = (email, password, isSignUp) => {
 
         axios.post(url, authData)
             .then(res => {
+
+
+                // local storage
+                const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)
+                localStorage.setItem('token', res.data.idToken)
+                localStorage.setItem('expirationDate', expirationDate)
+
+                // store
                 dispatch(authSuccess(res.data.idToken, res.data.localId))
                 dispatch(checkAuthTimeout(res.data.expiresIn))
             })
@@ -44,4 +52,13 @@ export const auth = (email, password, isSignUp) => {
 export const setAuthRedirectPath = actionCreactor(actionTypes.SET_AUTH_REDIRECT_PATH, "path")
 
 
-export const logout = actionCreactor(actionTypes.LOGOUT)
+export const logout = ()=> {
+
+    //remove from local store
+    localStorage.removeItem("token")
+    localStorage.removeItem("expirationDate")
+
+    return({
+        type:actionTypes.LOGOUT
+    })
+}
