@@ -38,6 +38,7 @@ export const auth = (email, password, isSignUp) => {
                 const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)
                 localStorage.setItem('token', res.data.idToken)
                 localStorage.setItem('expirationDate', expirationDate)
+                localStorage.setItem('userID', res.data.localId)
 
                 // store
                 dispatch(authSuccess(res.data.idToken, res.data.localId))
@@ -57,8 +58,30 @@ export const logout = ()=> {
     //remove from local store
     localStorage.removeItem("token")
     localStorage.removeItem("expirationDate")
+    localStorage.removeItem("userId")    
 
     return({
         type:actionTypes.LOGOUT
     })
+}
+
+export const authCheckState = () => {
+    return dispatch => {
+
+        const userId = localStorage.getItem("userId")
+        const token = localStorage.getItem("token")
+        if (!token){
+            dispatch(logout())
+        } else {
+            const expirationDate = new Date(localStorage.getItem("expirationDate"))
+            if (expirationDate < new Date()){
+                dispatch(logout())
+            } else {
+                dispatch(authSuccess(token, userId)) // (actionTypes.AUTH_SUCCESS, "idToken", "userId")
+            }
+
+
+        }
+
+    }
 }
