@@ -68,7 +68,6 @@ export const logout = ()=> {
 export const authCheckState = () => {
     return dispatch => {
 
-        const userId = localStorage.getItem("userId")
         const token = localStorage.getItem("token")
         if (!token){
             dispatch(logout())
@@ -77,6 +76,7 @@ export const authCheckState = () => {
             if (expirationDate < new Date()){
                 dispatch(logout())
             } else {
+                const userId = localStorage.getItem("userId")                
                 dispatch(authSuccess(token, userId)) // (actionTypes.AUTH_SUCCESS, "idToken", "userId")
             }
 
