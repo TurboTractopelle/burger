@@ -11,7 +11,7 @@ import * as actions from "../../store/actions/burgerBuilder"
 import {setAuthRedirectPath} from "../../store/actions/auth"
 
 
-class BurgerBuilder extends Component{
+export class BurgerBuilder extends Component{
 
     state ={
         purchasable : false,
@@ -53,15 +53,16 @@ class BurgerBuilder extends Component{
     render(){
 
         const {ingredients} = this.props
-        
+        let disabledInfo = true
 
-        const disabledInfo = Object.keys(ingredients).reduce((a,k)=>{
+        if( ingredients){
+        disabledInfo = Object.keys(ingredients).reduce((a,k)=>{
             return a = ingredients[k] === 0 ? { ...a, [k]: true } : { ...a, [k]: false }
-          }, {})
+          }, {})}
        
-
-    return(
-        <Aux>
+          let burger
+          if(ingredients){
+            burger =         <Aux>
             {this.props.fetchFailed && <p style={{textAlign:"center"}}>{this.props.fetchFailed}</p> }
         <Modal testShow={this.state.purchasing} closeModal={this.closeModal}  >
             <OrderSummary ingredients={ingredients} closeModal={this.closeModal} purchaseContinue={this.purchaseContinue} price={this.props.totalPrice} loading={this.state.loading} />
@@ -77,7 +78,10 @@ class BurgerBuilder extends Component{
             purchasingHandler={this.purchasingHandler}
             />
     </Aux>
-        )
+          }
+
+    return burger
+        
     }
 }
 
